@@ -23,6 +23,7 @@ const capitalize = (s) => {
 const getClanUrl = (region, clan) => `https://api.worldoftanks.${region}/wot/globalmap/claninfo/?application_id=${APPLICATION_ID}&clan_id=${clan}`
 const getBattlesUrl = (region, clan) => `https://api.worldoftanks.${region}/wot/globalmap/clanbattles/?application_id=${APPLICATION_ID}&clan_id=${clan}`
 
+app.get('/cal/:region/:clan/feed.ics', async (req, res) => {
     const { region, clan } = req.params
     const REGION = REGIONS[region]
     const CLAN_URL = getClanUrl(REGION, clan)
@@ -61,3 +62,9 @@ const getBattlesUrl = (region, clan) => `https://api.worldoftanks.${region}/wot/
         })
         await Promise.all(requests)
     }
+
+    const cal = cal.toString();
+    res.send(cal);
+})
+
+app.listen(PORT, () => console.log(`Example app listening at http://localhost:${PORT}`))
