@@ -14,3 +14,9 @@ const REGIONS = new Proxy({
     }, {
         get: (target, name) => name in target ? target[name] : `com`
 })
+
+const capitalize = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+}
+
