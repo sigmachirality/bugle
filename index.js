@@ -40,3 +40,24 @@ const getBattlesUrl = (region, clan) => `https://api.worldoftanks.${region}/wot/
     })
 
 
+    if (battleData.data) {
+        const { data: battles } = battleData;
+        const requests = battles.map(({
+            time,
+            attack_type,
+            competitor_id,
+            province_name
+        }) => async () => {
+            const start = Date.parse(time)
+            const end = new Date(start)
+            end.setMinutes(start.getMinutes() + 15)
+            const { tag: enemy_name = "Enemy Clan" } = await (fetch(getClanUrl(REGION, competitor_id)).then(res => res.json))
+            cal.createEvent({
+                start,
+                end,
+                timestamp: start,
+                summary: `${capitalize(attack_type)} Against ${capitalize(enemy_name)} For ${capitalize(province_name)}`
+            })
+        })
+        await Promise.all(requests)
+    }
