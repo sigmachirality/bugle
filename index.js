@@ -20,6 +20,7 @@ const capitalize = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-const getClanUrl = clan => `https://api.worldoftanks.com/wot/globalmap/claninfo/?application_id=${APPLICATION_ID}&clan_id=${clan}`
-const getBattlesUrl = clan => `https://api.worldoftanks.${REGION}/wot/globalmap/clanbattles/?application_id=${APPLICATION_ID}&clan_id=${clan}`
+const getClanUrl = (region, clan) => `https://api.worldoftanks.${region}/wot/globalmap/claninfo/?application_id=${APPLICATION_ID}&clan_id=${clan}`
+const getBattlesUrl = (region, clan) => `https://api.worldoftanks.${region}/wot/globalmap/clanbattles/?application_id=${APPLICATION_ID}&clan_id=${clan}`
+
 
