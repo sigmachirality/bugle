@@ -23,4 +23,20 @@ const capitalize = (s) => {
 const getClanUrl = (region, clan) => `https://api.worldoftanks.${region}/wot/globalmap/claninfo/?application_id=${APPLICATION_ID}&clan_id=${clan}`
 const getBattlesUrl = (region, clan) => `https://api.worldoftanks.${region}/wot/globalmap/clanbattles/?application_id=${APPLICATION_ID}&clan_id=${clan}`
 
+    const { region, clan } = req.params
+    const REGION = REGIONS[region]
+    const CLAN_URL = getClanUrl(REGION, clan)
+    const BATTLES_URL = getBattlesUrl(REGION, clan)
+
+    const clanData = await (fetch(CLAN_URL).then(res => res.json()))
+    const battleData = await (fetch(BATTLES_URL).then(res => res.json()))
+    const cal = ical({
+        domain: `https://${region}.wargaming.net/globalmap/`,
+        prodId: {
+            company: 'tomato.gg',
+            product: 'bugle'
+        },
+        name: `Battles for ${clanData?.tag || 'Your Clan'}`
+    })
+
 
